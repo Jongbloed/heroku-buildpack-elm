@@ -23,11 +23,11 @@ restore_cache() {
 
 install_binaries() {
   # node_modules should already be on the path
-  cd "$BUILD_DIR" && elm-package install -y | indent
+  cd "$BUILD_DIR" && elm package install -y | indent
 }
 
 make_app() {
-  cd "$BUILD_DIR" && elm-make src/App.elm --output=public/app.js | indent
+  cd "$BUILD_DIR" && elm make src/App.elm --output=public/app.js | indent
 }
 
 cache_build() {
