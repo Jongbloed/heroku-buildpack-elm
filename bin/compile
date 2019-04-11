@@ -27,7 +27,7 @@ install_binaries() {
 }
 
 make_app() {
-  cd "$BUILD_DIR" && elm make src/App.elm --output=public/app.js | indent
+  cd "$BUILD_DIR" && elm make ./simplecounter.elm --output ./rafs-backend-1/rafs-backend-1/wwwroot/js/app.js | indent
 }
 
 cache_build() {
