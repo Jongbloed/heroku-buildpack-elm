@@ -27,7 +27,7 @@ restore_cache() {
 
 make_app() {
   # node_modules should already be on the path
-  ELM_COMPILE=$(get_app_json_env "ELM_COMPILE" || "elm make *.elm --output App.js")
+  # ELM_COMPILE=$(get_app_json_env "ELM_COMPILE" || "elm make *.elm --output App.js")
   cd "$BUILD_DIR" && $ELM_COMPILE | indent
 }
 
