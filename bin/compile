@@ -4,26 +4,9 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 
-export_env_dir() {
-  env_dir=$1
-  whitelist_regex=${2:-''}
-  blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
-  if [ -d "$env_dir" ]; then
-    ls -a $env_dir
-    for e in $(ls $env_dir); do
-      echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
-      export "$e=$(cat $env_dir/$e)"
-      :
-    done
-  fi
-}
-
-export_env_dir
-
 indent() {
   sed -u 's/^/       /'
 }
-
 
 restore_cache() {
   if [ -e "$BUILD_DIR/elm-stuff" ]; then
@@ -38,6 +21,8 @@ restore_cache() {
   fi
 }
 
+
+
 #install_binaries() {
   # cd "$BUILD_DIR" && elm install | indent
 #}
@@ -45,7 +30,9 @@ restore_cache() {
 make_app() {
   # node_modules should already be on the path
   #ELM_COMPILE=$(cat "$1/ELM_COMPILE")
-  echo "-----> Compiling with $ELM_COMPILE"
+  echo "-----> Compiling with $(cat elm_compile.sh)"
+  chmod +x elm_compile.sh
+  ./elm_compile.sh
   cd "$BUILD_DIR" && $ELM_COMPILE | indent
 }
 
