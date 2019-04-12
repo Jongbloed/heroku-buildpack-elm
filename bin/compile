@@ -22,11 +22,11 @@ restore_cache() {
 }
 
 install_binaries() {
-  # node_modules should already be on the path
-  cd "$BUILD_DIR" && elm install | indent
+  # cd "$BUILD_DIR" && elm install | indent
 }
 
 make_app() {
+  # node_modules should already be on the path
   ELM_COMPILE=$(get_app_json_env "ELM_COMPILE" || "elm make *.elm --output App.js")
   cd "$BUILD_DIR" && $ELM_COMPILE | indent
 }
