@@ -28,7 +28,8 @@ restore_cache() {
 
 make_app() {
   # node_modules should already be on the path
-  ELM_COMPILE=$(cat "$1/ELM_COMPILE")
+  ELM_COMPILE=$(cat "$ENV/ELM_COMPILE")
+  echo "-----> Compiling with ${ELM_COMPILE}"
   cd "$BUILD_DIR" && $ELM_COMPILE | indent
 }
 
@@ -39,10 +40,9 @@ cache_build() {
   
 }
 
-echo "-----> Compiling with ${ELM_COMPILE}"
-${ELM_COMPILE} | indent
+#${ELM_COMPILE} | indent
 
 #restore_cache
 #install_binaries
-#make_app
+make_app
 #cache_build #TODO figure out where elm-stuff goes
