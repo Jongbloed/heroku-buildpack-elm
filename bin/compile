@@ -27,6 +27,7 @@ install_binaries() {
 }
 
 make_app() {
+  ELM_COMPILE=$(get_app_json_env "ELM_COMPILE" || "elm make *.elm --output App.js")
   cd "$BUILD_DIR" && $ELM_COMPILE | indent
 }
 
