@@ -21,9 +21,9 @@ restore_cache() {
   fi
 }
 
-install_binaries() {
+#install_binaries() {
   # cd "$BUILD_DIR" && elm install | indent
-}
+#}
 
 make_app() {
   # node_modules should already be on the path
@@ -37,6 +37,6 @@ cache_build() {
 
 
 restore_cache
-install_binaries
+#install_binaries
 make_app
 cache_build
