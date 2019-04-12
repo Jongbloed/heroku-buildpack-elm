@@ -32,7 +32,10 @@ make_app() {
 }
 
 cache_build() {
+  ls -a 
+  ls -a $BUILD_DIR
   cp -R "$BUILD_DIR/elm-stuff" "$CACHE_DIR"
+  
 }
 
 
