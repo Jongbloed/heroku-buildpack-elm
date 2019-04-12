@@ -32,7 +32,7 @@ make_app() {
   #ELM_COMPILE=$(cat "$1/ELM_COMPILE")
   echo "-----> Compiling with $(cat "$BUILD_DIR/elm_compile.sh")"
   chmod +x "$BUILD_DIR/elm_compile.sh"
-  "$BUILD_DIR/elm_compile.sh"
+  cd "$BUILD_DIR" && ./elm_compile.sh
   #cd "$BUILD_DIR" && $ELM_COMPILE | indent
 }
 
