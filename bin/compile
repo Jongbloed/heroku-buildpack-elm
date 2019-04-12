@@ -45,7 +45,7 @@ cache_build() {
 
 #${ELM_COMPILE} | indent
 
-#restore_cache
+restore_cache
 #install_binaries
 make_app
-#cache_build #TODO figure out where elm-stuff goes
+cache_build #TODO figure out where elm-stuff goes
