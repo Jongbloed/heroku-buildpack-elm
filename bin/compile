@@ -27,8 +27,8 @@ restore_cache() {
 		  echo '== ls /app/' | indent
 		  ls -a "/app/" | indent
 		  mv "$CACHE_DIR/.elm" "/app/.elm" | indent
-		  echo "ls -a /app/elm/" | indent
-		  ls -a "/app/elm/" | indent
+		  echo "ls -a /app/.elm/" | indent
+		  ls -a "/app/.elm/" | indent
 		else
 		  echo "cached elm-stuff was found, but cached /app/.elm is missing. Did not restore" | indent
 		fi
