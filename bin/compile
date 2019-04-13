@@ -14,17 +14,21 @@ restore_cache() {
   else
     if [ -e "$CACHE_DIR/elm-stuff" ]; then
 		if [ -e "$CACHE_DIR/.elm" ]; then
-		  ls -a "$CACHE_DIR/*" | indent
+		  echo "contents of $CACHE_DIR/.elm: " | indent
+		  ls "$CACHE_DIR/.elm/" | indent
+		  echo "contents of cache dir:" | indent
+		  ls "$CACHE_DIR/" | indent
 		  echo "- restoring elm-stuff" | indent
 		  mv "$CACHE_DIR/elm-stuff" "$BUILD_DIR"
-		  if [ -e "$CACHE_DIR/.elm" ]; then
-			echo "- restoring binary elm stuff in /app/.elm" | indent
-			ls -a /app | indent
-			mv "$CACHE_DIR/.elm" /app/.elm | indent
-			ls -a /app/ | indent
-		  else
-			echo "- no cached .elm folder found" | indent
-		  fi
+		  echo "- moved elm-stuff back:" | indent
+		  ls "$BUILD_DIR/elm-stuff/"
+		  
+		  echo "- restoring binary elm stuff in /app/.elm" | indent
+		  echo 'ls /app/' | indent
+		  ls "/app/" | indent
+		  mv "$CACHE_DIR/.elm" "/app/.elm" | indent
+		  echo "ls -a /app/elm/" | indent
+		  ls -a "/app/elm/" | indent
 		else
 		  echo "cached elm-stuff was found, but cached /app/.elm is missing. Did not restore" | indent
 		fi
