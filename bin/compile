@@ -14,12 +14,15 @@ restore_cache() {
   else
     if [ -e "$CACHE_DIR/elm-stuff" ]; then
 		if [ -e "$CACHE_DIR/.elm" ]; then
+		  
 		  echo "==contents of $CACHE_DIR/.elm/0.19.0/: " | indent
 		  ls -a "$CACHE_DIR/.elm/0.19.0/" | indent
 		  echo "==contents of cache dir:" | indent
 		  ls -a "$CACHE_DIR/" | indent
+		  echo "==contents of build dir:" | indent
+		  ls -a "$BUILD_DIR/" | indent
 		  echo "- restoring elm-stuff" | indent
-		  mv "$CACHE_DIR/elm-stuff" "$BUILD_DIR"
+		  mv "$CACHE_DIR/elm-stuff" "$BUILD_DIR/elm-stuff"
 		  echo "- moved elm-stuff back:" | indent
 		  ls -a "$BUILD_DIR/elm-stuff/"
 		  
