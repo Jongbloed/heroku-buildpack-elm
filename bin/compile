@@ -24,9 +24,12 @@ restore_cache() {
 		  ls -a "$BUILD_DIR/elm-stuff/"
 		  
 		  echo "- restoring binary elm stuff in /app/.elm" | indent
-		  echo '== ls /app/' | indent
+		  echo '== ls -a /app/' | indent
 		  ls -a "/app/" | indent
+		  echo "== moving that shit" | indent
 		  mv "$CACHE_DIR/.elm" "/app/.elm" | indent
+		  echo '== ls -a /app' | indent
+		  ls -a "/app" | indent
 		  echo "ls -a /app/.elm/" | indent
 		  ls -a "/app/.elm/" | indent
 		else
