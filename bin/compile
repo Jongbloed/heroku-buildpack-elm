@@ -4,9 +4,8 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 
-cd "$BUILD_DIR" && (source "./elm_compile.sh")
-  #echo "-----> Compiling with $(cat "$BUILD_DIR/elm_compile.sh")"
-  #chmod +x "$BUILD_DIR/elm_compile.sh"
-  #cd "$BUILD_DIR" && ./elm_compile.sh
-  #cd "$BUILD_DIR" && $ELM_COMPILE | indent
-#}
+indent() {
+  sed -u 's/^/       /'
+}
+
+cd "$BUILD_DIR" && (source "./elm_compile.sh") | indent
