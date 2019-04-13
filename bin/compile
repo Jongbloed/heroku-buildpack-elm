@@ -9,7 +9,7 @@ indent() {
 }
 
 restore_cache() {
-  if [ -e "$BUILD_DIR/elm-stuff" && -e "/app/.elm" ]; then
+  if [[ -e "$BUILD_DIR/elm-stuff" && -e "/app/.elm" ]]; then
     echo "- skipping cache restore, exists" | indent
   else
     if [ -e "$CACHE_DIR/elm-stuff" ]; then
