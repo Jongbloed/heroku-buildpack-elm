@@ -17,7 +17,10 @@ restore_cache() {
       mv "$CACHE_DIR/elm-stuff" "$BUILD_DIR"
 	  if [ -e "$CACHE_DIR/.elm" ]; then
 	    echo "- restoring binary elm stuff in /app/.elm" | indent
-		mv "$CACHE_DIR/.elm" '/app'
+		ls -a /app
+		ls -a /app/.elm
+		mv "$CACHE_DIR/.elm" '/app/.elm'
+		ls -a /app/.elm/
 	  else
 	    echo "- no cached .elm folder found" | indent
 	  fi
