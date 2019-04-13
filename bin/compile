@@ -13,10 +13,16 @@ restore_cache() {
     echo "- skipping cache restore, exists" | indent
   else
     if [ -e "$CACHE_DIR/elm-stuff" ]; then
-      echo "- restoring cache" | indent
+      echo "- restoring elm-stuff" | indent
       mv "$CACHE_DIR/elm-stuff" "$BUILD_DIR"
+	  if [ -e "$CACHE_DIR/.elm" ]; then
+	    echo "- restoring binary elm stuff in /app/.elm" | indent
+		mv "$CACHE_DIR/.elm" '/app'
+	  else
+	    echo "- no cached .elm folder found" | indent
+	  fi
     else
-      echo "- no cache detected" | indent
+      echo "- no cached elm-stuff detected" | indent
     fi
   fi
 }
@@ -37,15 +43,22 @@ make_app() {
 }
 
 cache_build() {
-  ls -a 
-  ls -a $BUILD_DIR
+# The binary data at /app/.elm/0.19.0/package/elm/browser/1.0.0/objs.dat is
+# corrupt.
+# Elm caches build artifacts in the following directories:
+#    /app/.elm
+#    elm-stuff/
+# Maybe you recently installed a command line tool or editor plugin that messes
+# with them? They definitely should not be doing that, but you never know! So
+# maybe try deleting them? Everything will be rebuilt from scratch. This may help
+# reveal the corrupting influence.
+  cp -R "/app/.elm" "$CACHE_DIR"
   cp -R "$BUILD_DIR/elm-stuff" "$CACHE_DIR"
-  
 }
 
 #${ELM_COMPILE} | indent
 
-#restore_cache
+restore_cache
 #install_binaries
 make_app
 cache_build #TODO figure out where elm-stuff goes
