@@ -1,61 +1,20 @@
-## Heroku Elm Buildpack
+## Heroku Elm 19.0 Buildpack
 
-A simple buildpack that uses [npm's elm package](https://www.npmjs.com/package/elm) for binaries, and compiles `src/App.elm` to `public/app.js`.
+A simple buildpack that uses [npm's elm package](https://www.npmjs.com/package/elm) for binaries, and executes your 'elm_compile.sh'
 
 ### Configuration
 
-1. Create a package.json (http://browsenpm.org/package.json) in your project root and add the `elm` dependency, i.e.
-
-  ```
-  {
-    "name": "myapp",
-    ...
-    "dependencies": {
-      "elm": "^0.17.1"
-    }
-  }
-  ```
-
-2. Add/modify `app.json` with the following buildpacks:
+Use these buildpacks:
 
 ```
-{
-  "name": "myapp",
-  "scripts": {},
-  "env": {},
-  "formation": {},
-  "addons": [],
-  "buildpacks": [
     { "url": "heroku/nodejs" },
-    { "url": "https://github.com/supermario/heroku-buildpack-elm" }
-  ]
-}
+    { "url": "https://github.com/Jongbloed/heroku-buildpack-elm" }
 ```
 
-3. :warning: Currently Heroku's multi-buildpack support uses the last buildpack for deployment, which means you need to have a buildpack loaded after this one, or a Procfile.
+Put your `elm make` command in elm_compile.sh
 
-Here's a simple static server `Procfile`, assuming you've `npm install http-server --save`'ed to update your `package.json`.
+I disabled trying to cache the elm-stuff and /app/.elm folders, because that doesn't work.
+It seem like elm doesn't see the ~/.elm folder, and then reports it as CORRUPT instead of missing.
+See alse https://github.com/elm/compiler/issues/1845
 
-```
-web: http-server public/ -p $PORT --robots
-```
-
-Don't forget your `public/index.html`:
-
-```
-<!DOCTYPE HTML>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
-  <script src="app.js"></script>
-</head>
-<body>
-  <script type="text/javascript">
-    Elm.App.fullscreen()
-  </script>
-</body>
-</html>
-```
-
-Note: Make sure that nodejs buildpack is specified first, otherwise `elm-package` and `elm-make` will not be found. Run `heroku buildpacks` to verify the order (or use Heroku Dashboard).
+So basically this buildpack does nothing except execute ./elm_compile.sh
