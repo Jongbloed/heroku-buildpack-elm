@@ -9,21 +9,25 @@ indent() {
 }
 
 restore_cache() {
-  if [ -e "$BUILD_DIR/elm-stuff" ]; then
+  if [ -e "$BUILD_DIR/elm-stuff" && -e "/app/.elm" ]; then
     echo "- skipping cache restore, exists" | indent
   else
     if [ -e "$CACHE_DIR/elm-stuff" ]; then
-      echo "- restoring elm-stuff" | indent
-      mv "$CACHE_DIR/elm-stuff" "$BUILD_DIR"
-	  if [ -e "$CACHE_DIR/.elm" ]; then
-	    echo "- restoring binary elm stuff in /app/.elm" | indent
-		ls -a /app
-		ls -a /app/.elm
-		mv "$CACHE_DIR/.elm" '/app/.elm'
-		ls -a /app/.elm/
-	  else
-	    echo "- no cached .elm folder found" | indent
-	  fi
+		if [ -e "$CACHE_DIR/.elm" ]; then
+		  ls -a "$CACHE_DIR/*" | indent
+		  echo "- restoring elm-stuff" | indent
+		  mv "$CACHE_DIR/elm-stuff" "$BUILD_DIR"
+		  if [ -e "$CACHE_DIR/.elm" ]; then
+			echo "- restoring binary elm stuff in /app/.elm" | indent
+			ls -a /app | indent
+			mv "$CACHE_DIR/.elm" /app/.elm | indent
+			ls -a /app/ | indent
+		  else
+			echo "- no cached .elm folder found" | indent
+		  fi
+		else
+		  echo "cached elm-stuff was found, but cached /app/.elm is missing. Did not restore" | indent
+		fi
     else
       echo "- no cached elm-stuff detected" | indent
     fi
